@@ -13,6 +13,7 @@
                 <th>Size</th>
                 <th>Price</th>
                 <th>Status</th>
+                <th>Bukti Transfer</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -27,10 +28,23 @@
                 <td>{{ $booking->price }}</td>
                 <td>{{ $booking->status }}</td>
                 <td>
+                    @if ($booking->bukti_transfer)
+                    <img src="{{ asset('storage/' . $booking->bukti_transfer) }}" alt="Bukti Transfer" style="max-width: 100px;">
+                    @else
+                    <p>No bukti transfer uploaded</p>
+                    @endif
+                </td>
+                <td>
                     @if ($booking->status != 'confirmed')
                     <form method="POST" action="{{ route('admin.confirm.booking', $booking->id) }}" style="display: inline-block;">
                         @csrf
                         <button type="submit" class="btn btn-primary">Confirm</button>
+                    </form>
+                    @endif
+                    @if ($booking->status == 'confirmed' && $booking->status_bukti_transfer == 'pending')
+                    <form method="POST" action="{{ route('admin.bookings.confirmPayment', $booking) }}" style="display: inline-block;">
+                        @csrf
+                        <button type="submit" class="btn btn-success">Confirm Transfer</button>
                     </form>
                     @endif
                     <form method="POST" action="{{ route('admin.delete.booking', $booking->id) }}" style="display: inline-block;">

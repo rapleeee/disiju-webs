@@ -14,7 +14,11 @@ class AddStatusToBookingsTable extends Migration
     public function up()
     {
         Schema::table('bookings', function (Blueprint $table) {
-            $table->string('status')->default('pending');
+            if (!Schema::hasColumn('bookings', 'status')) {
+                $table->string('status')->default('pending');
+            }
+            $table->string('bukti_transfer')->nullable();
+            $table->string('status_bukti_transfer')->default('pending');
         });
     }
 
@@ -27,6 +31,8 @@ class AddStatusToBookingsTable extends Migration
     {
         Schema::table('bookings', function (Blueprint $table) {
             $table->dropColumn('status');
+            $table->dropColumn('bukti_transfer');
+            $table->dropColumn('status_bukti_transfer');
         });
     }
 }

@@ -12,11 +12,45 @@
 <!--========== NAV ==========-->
 <div class="nav" id="navbar">
     <nav class="nav__container">
+    <div>
+                    <a href="#" class="nav__link nav__logo">
+                        <i class='bx bxs-disc nav__icon' ></i>
+                        <span class="nav__logo-name">Disiju Perkasa</span>
+                    </a>
+
+                    <div class="nav__list">
+                        <div class="nav__items">
+                            <h3 class="nav__subtitle">Profile</h3>
+
+                            <a href="/home" class="nav__link">
+                                <i class='bx bx-home nav__icon' ></i>
+                                <span class="nav__name">Home</span>
+                            </a>
+
+                            <div class="nav__dropdown">
+                                <a href="#" class="nav__link">
+                                    <i class='bx bx-user nav__icon' ></i>
+                                    <span class="nav__name">Profile</span>
+                                    <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                                </a>
+
+                                <div class="nav__dropdown-collapse">
+                                    <div class="nav__dropdown-content">
+                                        <a href="#" class="nav__dropdown-item">Visi & Misi</a>
+                                        <a href="#" class="nav__dropdown-item">Tugas & Fungsi</a>
+                                        <a href="#" class="nav__dropdown-item">Struktur Organisasi</a>
+                                        <a href="/gedung" class="nav__dropdown-item">Gedung Event</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="/faq" class="nav__link">
+                                <i class='bx bx-message-rounded nav__icon' ></i>
+                                <span class="nav__name">Faq</span>
+                            </a>
+                        </div>
+
         <div>
-            <a href="/home" class="nav__link nav__logo">
-                <i class='bx bxs-disc nav__icon'></i>
-                <span class="nav__logo-name"></span>
-            </a>
 
             <div class="nav__list">
                 <div class="nav__items">

@@ -13,7 +13,7 @@
                 <th>Size</th>
                 <th>Price</th>
                 <th>Status</th>
-                <th>Payment Instructions</th>
+                <th>Payment Instructions & Confirmation</th>
             </tr>
         </thead>
         <tbody>
@@ -32,10 +32,22 @@
                 </td>
                 <td>
                     @if ($booking->status == 'confirmed')
+                    @if ($booking->status_bukti_transfer == 'pending')
                     <p>Untuk proses pembayaran silahkan lakukan pembayaran ke nomor rekening Mandiri atas nama PT Di Siju Saitama Perkasa nomor rekening 1670003540134</p>
-                    <p>Untuk konfirmasi bukti pembayaran, klik <a href="https://wa.me/+6282136166298">link berikut</a>.</p>
+                    <p>Untuk konfirmasi bukti pembayaran, upload bukti transfer di bawah ini:</p>
+                    <form action="{{ route('bookings.uploadBuktiTransfer', $booking) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="bukti_transfer">Upload Bukti Transfer</label>
+                            <input type="file" name="bukti_transfer" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </form>
                     @else
-                    <p>Menunggu konfirmasi</p>
+                    <p>Pembayaran sudah terkonfirmasi.</p>
+                    @endif
+                    @else
+                    <p>Menunggu konfirmasi booking.</p>
                     @endif
                 </td>
             </tr>
@@ -43,4 +55,5 @@
         </tbody>
     </table>
 </div>
+
 @endsection

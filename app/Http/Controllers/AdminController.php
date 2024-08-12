@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Event;
 use App\Models\Payment;
@@ -23,6 +22,15 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('bookings'));
     }
 
+    public function confirmBuktiTransfer(Booking $booking)
+    {
+        $booking->update([
+            'status_bukti_transfer' => 'confirmed',
+        ]);
+
+        return redirect()->route('admin.dashboard')->with('success', 'Bukti transfer berhasil dikonfirmasi.');
+    }
+
     public function confirmBooking($id)
     {
         $booking = Booking::find($id);
@@ -39,8 +47,6 @@ class AdminController extends Controller
         $payment = Payment::findOrFail($id);
         $payment->status = 'confirmed';
         $payment->save();
-
-        // Kirim email konfirmasi pembayaran ke pengguna di sini (opsional)
 
         return redirect()->route('admin.dashboard');
     }

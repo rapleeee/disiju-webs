@@ -18,6 +18,10 @@ class Booking extends Model
         'size',
         'price',
         'status',
+        'date',
+        'status',
+        'bukti_transfer',
+        'status_bukti_transfer',
     ];
 
     public function user()

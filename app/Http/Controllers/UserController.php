@@ -71,10 +71,36 @@ class UserController extends Controller
         return view('user.bookings', compact('bookings'));
     }
 
-    public function account()
-{
-    $user = Auth::user();
-    return view('user.account', compact('user'));
-}
+        public function account()
+    {
+        $user = Auth::user();
+        return view('user.account', compact('user'));
+    }
+    public function payment(Booking $booking)
+    {
+        return view('user.payment', [
+            'title' => 'Payment',
+            'booking' => $booking
+        ]);
+    }
+
+    public function uploadBuktiTransfer(Request $request, Booking $booking)
+    {
+        $request->validate([
+            'bukti_transfer' => 'required|mimes:jpeg,jpg,png|max:2048',
+        ]);
+
+        if ($request->hasFile('bukti_transfer')) {
+            $file = $request->file('bukti_transfer');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('bukti_transfer', $filename, 'public');
+
+            $booking->bukti_transfer = $path;
+            $booking->status_bukti_transfer = 'confirmed';
+            $booking->save();
+        }
+
+        return redirect()->route('user.bookings')->with('success', 'Bukti transfer berhasil diupload.');
+    }
 
 }
